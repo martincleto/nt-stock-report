@@ -1,0 +1,96 @@
+{
+  "name": "app-stock-report",
+  "description": "Webcomponent app-stock-report",
+  "license": "MIT",
+  "author": "Santiago Martín-Cleto",
+  "version": "0.0.0",
+  "scripts": {
+    "analyze": "cem analyze --litelement",
+    "build:dev": "webpack --mode development",
+    "build:prod": "webpack --mode production",
+    "lint": "eslint --ext .ts,.html . --ignore-path .gitignore && prettier \"**/*.ts\" --check --ignore-path .gitignore",
+    "format": "eslint --ext .ts,.html . --fix --ignore-path .gitignore && prettier \"**/*.ts\" --write --ignore-path .gitignore",
+    "restore-db": "cp server/db.bak.json server/db.json",
+    "server:api": "json-server --watch server/db.json --routes server/routes.json --port 8001",
+    "server:dev": "npm run build:dev && webpack serve --mode development --watch-files src --open",
+    "server:prod": "npm run build:prod && webpack serve --mode development --watch-files src --open",
+    "start:build": "concurrently -k -r \"npm run server:api\" \"npm run server:prod\"",
+    "start": "concurrently -k -r \"npm run server:api\" \"npm run server:dev\"",
+    "test:watch": "npm run build:dev && jest --silent=false --verbose=false --watch",
+    "test": "npm run build:prod && jest"
+  },
+  "dependencies": {
+    "json-server": "^0.17.0",
+    "lit": "^2.0.2"
+  },
+  "devDependencies": {
+    "@custom-elements-manifest/analyzer": "^0.4.17",
+    "@open-wc/eslint-config": "^4.3.0",
+    "@testing-library/dom": "^8.18.1",
+    "@testing-library/jest-dom": "^5.16.5",
+    "@testing-library/user-event": "^14.4.3",
+    "@types/jest": "^29.0.3",
+    "@typescript-eslint/eslint-plugin": "^4.33.0",
+    "@typescript-eslint/parser": "^4.33.0",
+    "clean-webpack-plugin": "^4.0.0",
+    "concurrently": "^5.3.0",
+    "electron": "^21.0.0",
+    "eslint": "^7.32.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-jest": "^27.0.4",
+    "html-webpack-plugin": "^5.5.0",
+    "husky": "^4.3.8",
+    "jest": "^26.0.1",
+    "jest-electron": "^0.1.12",
+    "lint-staged": "^10.5.4",
+    "msw": "^0.47.3",
+    "prettier": "^2.4.1",
+    "terser-webpack-plugin": "^5.3.6",
+    "ts-jest": "^26.5.6",
+    "ts-loader": "^9.4.1",
+    "tslib": "^2.3.1",
+    "typescript": "^4.5.2",
+    "webpack": "^5.74.0",
+    "webpack-cli": "^4.10.0",
+    "webpack-dev-server": "^4.11.1",
+    "webpack-merge": "^5.8.0"
+  },
+  "eslintConfig": {
+    "env": {
+      "jest/globals": true
+    },
+    "parser": "@typescript-eslint/parser",
+    "extends": [
+      "@open-wc",
+      "prettier"
+    ],
+    "plugins": [
+      "@typescript-eslint",
+      "jest"
+    ],
+    "rules": {
+      "no-unused-vars": "off",
+      "@typescript-eslint/no-unused-vars": [
+        "error"
+      ],
+      "import/no-unresolved": "off",
+      "import/extensions": "off"
+    }
+  },
+  "prettier": {
+    "singleQuote": true,
+    "arrowParens": "avoid"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.ts": [
+      "eslint --fix",
+      "prettier --write"
+    ]
+  },
+  "customElements": "custom-elements.json"
+}

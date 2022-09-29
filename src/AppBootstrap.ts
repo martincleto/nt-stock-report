@@ -1,11 +1,18 @@
 import { LitElement, html, css } from 'lit';
+import { connect } from 'pwa-helpers';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { property } from 'lit/decorators.js';
 
+import { AppStockReport } from '@apptypes';
+import { getProducts } from '@infrastructure/state/slices/report';
+import { RootState, store } from '@infrastructure/state/store';
+import '@ui/components/atoms/LoadingSpinner';
+
 // const logo = new URL('../assets/open-wc-logo.svg', import.meta.url).href;
 
-export class AppStockReport extends LitElement {
+export class AppBootstrap extends connect(store)(LitElement) {
   @property({ type: String }) title = 'Webcomponent app-stock-report';
+  @property({ type: Array }) products: AppStockReport.Product[] = [];
 
   static styles = css`
     :host {
@@ -39,22 +46,27 @@ export class AppStockReport extends LitElement {
         transform: rotate(360deg);
       }
     }
-
-    .app-footer {
-      font-size: calc(12px + 0.5vmin);
-      align-items: center;
-    }
-
-    .app-footer a {
-      margin-left: 5px;
-    }
   `;
+
+  connectedCallback() {
+    super.connectedCallback();
+    store.dispatch(getProducts());
+  }
+
+  stateChanged(state: RootState) {
+    const { products } = state.report;
+    this.products = products;
+  }
 
   render() {
     return html`
       <main>
-        <h1>${this.title}</h1>
-        <button>Click me</button>
+        ${this.products.length > 0
+          ? html`
+              <h1>${this.title}</h1>
+              <button>Click me</button>
+            `
+          : html` <loading-spinner></loading-spinner> `}
       </main>
     `;
   }

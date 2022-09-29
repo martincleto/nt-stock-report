@@ -1,3 +1,3 @@
-import { AppStockReport } from './AppStockReport';
+import { AppBootstrap } from './AppBootstrap';
 
-customElements.define('app-stock-report', AppStockReport);
+customElements.define('app-stock-report', AppBootstrap);

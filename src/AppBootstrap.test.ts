@@ -7,7 +7,7 @@ import type { UserEvent } from '@testing-library/user-event/dist/types/setup/set
 const getShadowRoot = (tagName: string): ShadowRoot =>
   document.body.getElementsByTagName(tagName)[0].shadowRoot!;
 
-describe('AppStockReport', () => {
+describe('AppBootstrap', () => {
   let appElement: LitElement;
   let rootElement: HTMLElement;
   let user: UserEvent;

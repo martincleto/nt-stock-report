@@ -6,7 +6,7 @@ const parseJSON = (response: Response) =>
 
 const doRequest = async (
   options: AppStockReport.RequestOptions
-): Promise<object> => {
+): Promise<any> => {
   const { endpoint, params, headers, body, method } = options;
 
   const _params =

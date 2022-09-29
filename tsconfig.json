@@ -1,6 +1,7 @@
 {
   "compilerOptions": {
     "allowSyntheticDefaultImports": true,
+    "baseUrl": ".",
     "esModuleInterop": false,
     "experimentalDecorators": true,
     "importHelpers": true,
@@ -11,6 +12,11 @@
     "moduleResolution": "node",
     "noEmitOnError": true,
     "outDir": "compiled",
+    "paths": {
+      "@apptypes": ["src/types"],
+      "@infrastructure/*": ["src/infrastructure/*"],
+      "@ui/*": ["src/ui/*"],
+    },
     "rootDir": "./",
     "strict": true,
     "sourceMap": true,

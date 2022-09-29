@@ -3,7 +3,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { merge } = require('webpack-merge');
 const path = require('path');
 const TerserPlugin = require('terser-webpack-plugin');
-
+const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
 
 const baseConfig = {
   entry: './src/index.ts',
@@ -18,6 +18,7 @@ const baseConfig = {
   },
   resolve: {
     extensions: ['.tsx', '.ts', '.js'],
+    plugins: [new TsconfigPathsPlugin()],
   },
   output: {
     filename: 'bundle.js',

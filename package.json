@@ -16,7 +16,7 @@
     "server:prod": "npm run build:prod && webpack serve --mode development --watch-files src --open",
     "start:build": "concurrently -k -r \"npm run server:api\" \"npm run server:prod\"",
     "start": "concurrently -k -r \"npm run server:api\" \"npm run server:dev\"",
-    "test:watch": "npm run build:dev && jest --silent=false --verbose=false --watch",
+    "test:watch": "npm run build:dev && jest --silent=false --watch",
     "test": "npm run build:prod && jest"
   },
   "dependencies": {

@@ -13,8 +13,12 @@ const initialState: AppStockReport.State = {
 
 export const getProducts = createAsyncThunk('report/getProducts', async () => {
   const productsData = await fetchProducts();
+  const products = productsData.map(productData => {
+    const productInstance = new ProductDTO(productData);
+    return { ...productInstance };
+  });
 
-  return productsData.map(productData => new ProductDTO(productData));
+  return products;
 });
 
 export const reportSlice = createSlice({
@@ -28,7 +32,6 @@ export const reportSlice = createSlice({
       })
       .addCase(getProducts.fulfilled, (state, action) => {
         state.status = 'succeeded';
-        // Add any fetched posts to the array
         state.products = state.products.concat(action.payload);
       })
       .addCase(getProducts.rejected, (state, action) => {

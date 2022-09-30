@@ -16,14 +16,14 @@ const baseConfig = {
       },
     ],
   },
+  output: {
+    filename: 'bundle.js',
+    path: path.resolve(__dirname, 'public'),
+    publicPath: '',
+  },
   resolve: {
     extensions: ['.tsx', '.ts', '.js'],
     plugins: [new TsconfigPathsPlugin()],
-  },
-  output: {
-    filename: 'bundle.js',
-    path: path.resolve(__dirname, 'dist'),
-    publicPath: '',
   },
   plugins: [
     new CleanWebpackPlugin(),
@@ -34,7 +34,7 @@ const config = {
   development: merge(baseConfig, {
     devtool: 'eval-cheap-source-map',
     devServer: {
-      static: path.join(__dirname, 'dist'),
+      static: path.join(__dirname, 'public'),
       compress: true,
       port: 8000,
     },
@@ -48,11 +48,25 @@ const config = {
   }),
   production: merge(baseConfig, {
     devtool: 'source-map',
+    output: {
+      filename: 'bundle.min.js',
+      path: path.resolve(__dirname, 'dist'),
+      publicPath: '',
+    },
     optimization: {
       minimize: true,
       minimizer: [new TerserPlugin()],
     },
   }),
+  test: merge(baseConfig, {
+    optimization: {
+      nodeEnv: 'test',
+    }
+  }),
 };
 
-module.exports = (env, argv) => config[argv.mode];
+module.exports = (env, argv) => {
+  if (env.test) return config.test;
+  
+  return config[argv.mode];
+};

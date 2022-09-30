@@ -11,13 +11,16 @@
     "lint": "eslint --ext .ts,.html . --ignore-path .gitignore && prettier \"**/*.ts\" --check --ignore-path .gitignore",
     "format": "eslint --ext .ts,.html . --fix --ignore-path .gitignore && prettier \"**/*.ts\" --write --ignore-path .gitignore",
     "restore-db": "cp server/db.bak.json server/db.json",
+    "pretest": "npm run build:dev -- --env test",
+    "pretest:watch": "npm run pretest",
     "server:api": "json-server --watch server/db.json --routes server/routes.json --port 8001",
     "server:dev": "npm run build:dev && webpack serve --mode development --watch-files src --open",
     "server:prod": "npm run build:prod && webpack serve --mode development --watch-files src --open",
     "start:build": "concurrently -k -r \"npm run server:api\" \"npm run server:prod\"",
     "start": "concurrently -k -r \"npm run server:api\" \"npm run server:dev\"",
-    "test:watch": "npm run build:dev && jest --silent=false --watch",
-    "test": "npm run build:prod && jest"
+    "test:ci": "npm run build:prod && jest",
+    "test:watch": "concurrently -k -r \"npm run server:api\" \"jest --silent=false --verbose=false --watch\"",
+    "test": "concurrently -k -r \"npm run server:api\" \"jest --silent=false --verbose=false\""
   },
   "dependencies": {
     "@reduxjs/toolkit": "^1.8.5",
@@ -58,50 +61,10 @@
     "webpack-dev-server": "^4.11.1",
     "webpack-merge": "^5.8.0"
   },
-  "eslintConfig": {
-    "env": {
-      "jest/globals": true
-    },
-    "parser": "@typescript-eslint/parser",
-    "extends": [
-      "@open-wc",
-      "prettier"
-    ],
-    "plugins": [
-      "@typescript-eslint",
-      "jest"
-    ],
-    "rules": {
-      "lines-between-class-members": [
-        "error",
-        "always",
-        {
-          "exceptAfterSingleLine": true
-        }
-      ],
-      "no-console": [
-        "error",
-        {
-          "allow": [
-            "error"
-          ]
-        }
-      ],
-      "no-unused-vars": "off",
-      "no-shadow": "off",
-      "@typescript-eslint/no-unused-vars": [
-        "error"
-      ],
-      "@typescript-eslint/no-shadow": [
-        "error"
-      ],
-      "import/no-unresolved": "off",
-      "import/extensions": "off"
-    }
-  },
   "prettier": {
-    "singleQuote": true,
-    "arrowParens": "avoid"
+    "arrowParens": "avoid",
+    "printWidth": 120,
+    "singleQuote": true
   },
   "husky": {
     "hooks": {
@@ -114,5 +77,8 @@
       "prettier --write"
     ]
   },
-  "customElements": "custom-elements.json"
+  "customElements": "custom-elements.json",
+  "msw": {
+    "workerDirectory": "public"
+  }
 }

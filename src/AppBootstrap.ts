@@ -6,12 +6,13 @@ import { property } from 'lit/decorators.js';
 import { AppStockReport } from '@apptypes';
 import { getProducts } from '@infrastructure/state/slices/report';
 import { RootState, store } from '@infrastructure/state/store';
+
 import '@ui/components/atoms/LoadingSpinner';
 
 // const logo = new URL('../assets/open-wc-logo.svg', import.meta.url).href;
 
 export class AppBootstrap extends connect(store)(LitElement) {
-  @property({ type: String }) title = 'Webcomponent app-stock-report';
+  @property({ type: String }) title = 'Top Stockout Review';
   @property({ type: Array }) products: AppStockReport.Product[] = [];
 
   static styles = css`
@@ -66,7 +67,7 @@ export class AppBootstrap extends connect(store)(LitElement) {
               <h1>${this.title}</h1>
               <button>Click me</button>
             `
-          : html` <loading-spinner></loading-spinner> `}
+          : html` <loading-spinner role="progressbar"></loading-spinner> `}
       </main>
     `;
   }

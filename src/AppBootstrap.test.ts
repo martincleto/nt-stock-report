@@ -1,40 +1,37 @@
 /* eslint-disable import/no-extraneous-dependencies */
 import { LitElement } from 'lit';
-import { getByRole } from '@testing-library/dom';
-import userEvent from '@testing-library/user-event';
-import type { UserEvent } from '@testing-library/user-event/dist/types/setup/setup';
+import { getByRole, findByText } from '@testing-library/dom';
+import { customElement, getShadowRoot } from '@test/util';
 
-const getShadowRoot = (tagName: string): ShadowRoot =>
-  document.body.getElementsByTagName(tagName)[0].shadowRoot!;
+const TAG_NAME = 'app-bootstrap';
 
-describe('AppBootstrap', () => {
-  let appElement: LitElement;
+describe(TAG_NAME, () => {
+  let appBootstrap: LitElement;
   let rootElement: HTMLElement;
-  let user: UserEvent;
+  // let user: UserEvent;
 
   beforeEach(async () => {
-    user = userEvent.setup();
-    appElement = window.document.createElement(
-      'app-stock-report'
-    ) as LitElement;
-    await document.body.appendChild(appElement);
-    rootElement = getShadowRoot('app-stock-report').querySelector('main')!;
+    // user = userEvent.setup();
+    appBootstrap = await customElement(TAG_NAME).setup();
+    rootElement = getShadowRoot(TAG_NAME).querySelector('main')!;
   });
 
   afterEach(() => {
-    document.body.getElementsByTagName('app-stock-report')[0].remove();
+    document.body.getElementsByTagName(TAG_NAME)[0].remove();
   });
 
-  test('should render the app shell', () => {
-    const expectedTitle = 'Webcomponent app-stock-report';
-    const actualTitle =
-      getShadowRoot('app-stock-report').querySelector('h1')!.textContent;
+  test('should show the data are loading', () => {
+    const loadingIndicator = getByRole(rootElement, 'progressbar');
 
-    const button = getByRole(rootElement, 'button');
+    expect(loadingIndicator).toBeVisible();
+  });
 
-    user.click(button);
+  test('should show a title', async () => {
+    await appBootstrap.updateComplete;
 
-    expect(actualTitle).toBe(expectedTitle);
-    expect(button).toBeVisible();
+    const expectedTitle = 'Top Stockout Review';
+    const actualTitle = await findByText(rootElement, expectedTitle);
+
+    expect(actualTitle).toBeVisible();
   });
 });

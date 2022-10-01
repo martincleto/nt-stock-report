@@ -26,7 +26,7 @@
     "types": ["jest", "node"]
   },
   "include": [
-    "**/*.ts",
+    "src/**/*.ts",
     "test/setupTests.ts"
   ]
 }

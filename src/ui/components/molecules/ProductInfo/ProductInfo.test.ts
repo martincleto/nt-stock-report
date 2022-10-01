@@ -1,6 +1,6 @@
 import { insertElement, getShadowRoot } from '@test/util';
 // eslint-disable-next-line import/no-extraneous-dependencies
-import { findByText, getByText } from '@testing-library/dom';
+import { findByText } from '@testing-library/dom';
 
 const TAG_NAME = 'product-info';
 
@@ -10,7 +10,6 @@ describe(TAG_NAME, () => {
     name: 'A cool jacket',
     price: '19,99 €',
   };
-  const rootElement = document.body;
 
   afterEach(() => {
     document.body.getElementsByTagName(TAG_NAME)[0].remove();

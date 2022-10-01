@@ -18,9 +18,8 @@
     "server:prod": "npm run build:prod && webpack serve --mode development --watch-files src --open",
     "start:build": "concurrently -k -r \"npm run server:api\" \"npm run server:prod\"",
     "start": "concurrently -k -r \"npm run server:api\" \"npm run server:dev\"",
-    "test:watch": "concurrently -k -r \"npm run server:api\" \"jest --silent=false --verbose=false --forceExit --watch\"",
-    "test:integration": "concurrently -k -r \"npm run server:api\" \"jest --silent=false --verbose=false --forceExit\"",
-    "test:unit": "jest src/ui --silent=false --verbose=false --forceExit"
+    "test:integration": "concurrently -k -r \"npm run server:api\" \"jest src/ui/views --forceExit\"",
+    "test:unit": "jest src/ui/components --forceExit"
   },
   "dependencies": {
     "@reduxjs/toolkit": "^1.8.5",

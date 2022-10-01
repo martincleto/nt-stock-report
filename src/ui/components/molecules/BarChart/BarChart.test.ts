@@ -1,14 +1,21 @@
-import { insertElement } from '@test/util';
+import { LitElement } from 'lit';
+import { customElement } from '@test/util';
+// eslint-disable-next-line import/no-extraneous-dependencies
+import { waitFor } from '@testing-library/dom';
 
-import Chart from 'chart.js';
+const mockChart = jest.fn();
 
-jest.mock('chart.js');
+jest.mock('chart.js', () =>
+  jest.fn().mockImplementation(() => ({
+    Chart: mockChart,
+  }))
+);
 
 const TAG_NAME = 'bar-chart';
 
 describe(TAG_NAME, () => {
   const mockAttrs = {
-    id: 'averageTempChart',
+    chartId: 'averageTempChart',
     data: {
       January: 9,
       February: 12,
@@ -20,15 +27,20 @@ describe(TAG_NAME, () => {
     },
   };
 
-  afterEach(() => {
-    document.body.getElementsByTagName(TAG_NAME)[0].remove();
+  beforeEach(async () => {
+    await customElement(TAG_NAME).setup([
+      {
+        chartId: mockAttrs.chartId,
+        data: JSON.stringify(mockAttrs.data),
+      },
+    ]);
   });
 
-  test('should render a bar chart', () => {
-    insertElement(`
-      <bar-chart id="${mockAttrs.id}" data=${JSON.stringify(mockAttrs.data)}></bar-chart>
-    `);
+  afterEach(() => {
+    customElement(TAG_NAME).cleanup();
+  });
 
-    expect(Chart).toHaveBeenCalled();
+  test('should render a bar chart', async () => {
+    waitFor(() => expect(mockChart).toHaveBeenCalled());
   });
 });

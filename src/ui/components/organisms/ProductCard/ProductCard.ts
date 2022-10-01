@@ -8,6 +8,7 @@ import { AppStockReport } from '@apptypes';
 import { RootState, store } from '@infrastructure/state/store';
 
 import '@ui/components/molecules/ProductInfo';
+import '@ui/components/molecules/BarChart';
 
 export class ProductCard extends connect(store)(LitElement) {
   @property({ type: Number }) code = undefined;
@@ -33,7 +34,13 @@ export class ProductCard extends connect(store)(LitElement) {
 
     @media (min-width: 600px) {
       :host {
-        width: fit-content;
+        width: calc(50% - 1rem);
+      }
+    }
+
+    @media (min-width: 960px) {
+      :host {
+        width: calc(25% - 1rem);
       }
     }
   `;
@@ -49,11 +56,17 @@ export class ProductCard extends connect(store)(LitElement) {
         <div class="product-image">
           <img src="${ifDefined(this.product?.imagePath)}" alt="${ifDefined(this.product?.name)}" />
         </div>
+
         <product-info
           code="${ifDefined(ifDefined(this.code))}"
           name="${ifDefined(this.product?.name)}"
           price="${ifDefined(this.product?.price)}"
         ></product-info>
+
+        <bar-chart
+          chartId="size-stock-${this.code}"
+          data="${JSON.stringify(ifDefined(this.product?.sizeStock))}"
+        ></bar-chart>
       </article>
     `;
   }

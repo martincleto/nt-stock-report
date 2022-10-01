@@ -4,8 +4,14 @@ const getShadowRoot = (tagName: string): ShadowRoot => document.body.getElements
 
 const customElement = (tagName: string) => ({
   cleanup: () => document.body.getElementsByTagName(tagName)[0].remove(),
-  setup: async () => {
+  setup: async (attributes: Record<string, any>[] = []) => {
     const element = window.document.createElement(tagName) as LitElement;
+
+    attributes.forEach(async attr => {
+      const [key, value] = Object.entries(attr) as [string, any];
+      await element.setAttribute(key, value);
+    });
+
     await document.body.appendChild(element);
 
     return element;

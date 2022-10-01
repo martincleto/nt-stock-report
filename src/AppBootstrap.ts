@@ -8,43 +8,51 @@ import { getProducts } from '@infrastructure/state/slices/report';
 import { RootState, store } from '@infrastructure/state/store';
 
 import '@ui/components/atoms/LoadingSpinner';
+import '@ui/components/atoms/TextElement';
+import '@ui/components/organism/ProductCard';
 
 // const logo = new URL('../assets/open-wc-logo.svg', import.meta.url).href;
-
 export class AppBootstrap extends connect(store)(LitElement) {
-  @property({ type: String }) title = 'Top Stockout Review';
+  @property({ type: String }) title = 'Top stockouts review';
   @property({ type: Array }) products: AppStockReport.Product[] = [];
 
   static styles = css`
     :host {
-      min-height: 100vh;
+      --accent-color: rgba(145, 215, 86, 255);
+      --primary-color: rgba(255, 80, 89, 255);
+      --light-color: rgba(225, 231, 237, 255);
+      --neutral0-color: rgba(0, 0, 0, 255);
+      --neutral150-color: rgba(150, 150, 150, 255);
+
+      align-items: center;
+      color: #1a2b42;
       display: flex;
       flex-direction: column;
-      align-items: center;
+      font-size: 1rem;
       justify-content: flex-start;
-      font-size: calc(10px + 2vmin);
-      color: #1a2b42;
-      max-width: 960px;
-      margin: 0 auto;
-      text-align: center;
-      background-color: var(--app-stock-report-background-color);
+      min-height: 100vh;
     }
 
     main {
       flex-grow: 1;
     }
 
-    .logo {
-      margin-top: 64px;
-      animation: app-logo-spin infinite 20s linear;
+    header {
+      background-color: var(--primary-color);
+      box-shadow: 0 0 0.15rem 0.15rem rgba(0, 0, 0, 0.2);
+      color: #fff;
+      left: 0;
+      padding: 1rem 2rem;
+      position: fixed;
+      top: 0;
+      text-transform: capitalize;
+      width: 100%;
     }
 
-    @keyframes app-logo-spin {
-      from {
-        transform: rotate(0deg);
-      }
-      to {
-        transform: rotate(360deg);
+    @media (min-width: 960px) {
+      :host {
+        margin: 0 auto;
+        max-width: 960px;
       }
     }
   `;
@@ -59,14 +67,18 @@ export class AppBootstrap extends connect(store)(LitElement) {
     this.products = products;
   }
 
+  renderContent() {
+    return this.products.map(({ code }) => html` <product-card code="${code}"></product-card> `);
+  }
+
   render() {
     return html`
       <main>
+        <header>
+          <text-element heading level="1">${this.title}</text-element>
+        </header>
         ${this.products.length > 0
-          ? html`
-              <h1>${this.title}</h1>
-              <button>Click me</button>
-            `
+          ? this.renderContent()
           : html` <loading-spinner role="progressbar"></loading-spinner> `}
       </main>
     `;

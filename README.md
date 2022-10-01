@@ -14,15 +14,22 @@ A basic stock report built with web components.
 
 ### Run the app
 `npm start` to develop
-`npm run start:build` to run the app with the producion bundle
+`npm run start:build` to run the app with the production bundle
 
 ### Tests
 `npm test`
 
+Note: As [msw](https://mswjs.io/) needs the API REST server to be running in order to mock the requests, please first stop the app - otherwise you will get an `EADDRINUSE` error.
+
 ### Other
 You can run `npm run restore-db` to populate the dummy db with the initial data.
 
-## User stories (iterations)
+### Development notes
+
+- I wanted this app to be **framework agnostic** then I chose Web Components + some helper libraries to build it.
+- The test runner recommended by [Open-WC](https://open-wc.org/guides/developing-components/testing/) to test Web Components was discarded as I reckon [testing-library]() is the best companion to test modern web apps.
+
+#### User stories (iterations)
 - IT-1 As a user I can see the stock report
   - IT-11 Create basic components (image, product details...)
   - IT-12 Create Size Stock Stats component

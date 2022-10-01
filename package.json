@@ -19,11 +19,12 @@
     "start:build": "concurrently -k -r \"npm run server:api\" \"npm run server:prod\"",
     "start": "concurrently -k -r \"npm run server:api\" \"npm run server:dev\"",
     "test:ci": "npm run build:prod && jest",
-    "test:watch": "concurrently -k -r \"npm run server:api\" \"jest --silent=false --verbose=false --watch\"",
-    "test": "concurrently -k -r \"npm run server:api\" \"jest --silent=false --verbose=false\""
+    "test:watch": "concurrently -k -r \"npm run server:api\" \"jest --silent=false --verbose=false --forceExit --watch\"",
+    "test": "concurrently -k -r \"npm run server:api\" \"jest --silent=false --verbose=false --forceExit\""
   },
   "dependencies": {
     "@reduxjs/toolkit": "^1.8.5",
+    "chart.js": "^3.9.1",
     "json-server": "^0.17.0",
     "lit": "^2.0.2",
     "pwa-helpers": "^0.9.1"

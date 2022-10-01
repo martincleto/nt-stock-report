@@ -12,4 +12,6 @@ const customElement = (tagName: string) => ({
   },
 });
 
-export { getShadowRoot, customElement };
+const insertElement = (html: string) => document.body.insertAdjacentHTML('afterbegin', html);
+
+export { customElement, insertElement, getShadowRoot };

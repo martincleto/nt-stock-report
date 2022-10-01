@@ -22,7 +22,9 @@ export class AppBootstrap extends connect(store)(LitElement) {
       --primary-color: rgba(255, 80, 89, 255);
       --light-color: rgba(225, 231, 237, 255);
       --neutral0-color: rgba(0, 0, 0, 255);
+      --neutral50-color: rgba(50, 50, 50, 255);
       --neutral150-color: rgba(150, 150, 150, 255);
+      --neutral200-color: rgba(200, 200, 200, 255);
 
       color: var(--neutral150-color);
       display: flex;
@@ -47,11 +49,12 @@ export class AppBootstrap extends connect(store)(LitElement) {
       box-shadow: 0 0 0.15rem 0.15rem rgba(0, 0, 0, 0.2);
       color: #fff;
       left: 0;
-      padding: 0.5rem 1.75rem;
+      padding: 1.2rem 1.75rem;
       position: fixed;
       top: 0;
       text-transform: capitalize;
       width: 100%;
+      z-index: 10;
     }
 
     @media (min-width: 1280px) {

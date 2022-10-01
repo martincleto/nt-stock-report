@@ -32,7 +32,7 @@ describe(TAG_NAME, () => {
     const heading = getShadowRoot(TAG_NAME).querySelector('h2')!;
 
     expect(heading).toBeVisible();
-    expect(heading).toHaveStyle(`font-size: ${toPx('1.75rem')}`);
+    expect(heading).toHaveStyle(`font-size: ${toPx('1.25rem')}`);
   });
 
   test('should display a heading of level 3', async () => {
@@ -40,7 +40,7 @@ describe(TAG_NAME, () => {
     const heading = getShadowRoot(TAG_NAME).querySelector('h3')!;
 
     expect(heading).toBeVisible();
-    expect(heading).toHaveStyle(`font-size: ${toPx('1.5rem')}`);
+    expect(heading).toHaveStyle(`font-size: ${toPx('1rem')}`);
   });
 
   test('should display uppercased text', async () => {
@@ -54,7 +54,7 @@ describe(TAG_NAME, () => {
     await insertElement(`<text-element large>${mockText}</text-element>`);
     textElement = getShadowRoot(TAG_NAME).querySelector('span')!;
 
-    expect(textElement).toHaveStyle(`font-size: ${toPx('3.5rem')}`);
+    expect(textElement).toHaveStyle(`font-size: ${toPx('2.5rem')}`);
   });
 
   test('should display a small text', async () => {

@@ -9,7 +9,18 @@ export class ProductInfo extends LitElement {
   @property({ type: String }) name = '';
   @property({ type: String }) price = '';
 
-  static styles = css``;
+  static styles = css`
+    :host {
+      display: block;
+      padding: 1rem;
+    }
+
+    text-element[heading] {
+      --text-element-font-size: 1rem;
+      --text-element-margin-bottom: 1rem;
+      color: var(--neutral50-color);
+    }
+  `;
 
   render() {
     return html`

@@ -17,7 +17,8 @@ A basic stock report built with web components.
 `npm run start:build` to run the app with the production bundle
 
 ### Tests
-`npm test`
+`npm test:unit` runs unit tests
+`npm test:integration` runs integration test
 
 Note: As [msw](https://mswjs.io/) needs the API REST server to be running in order to mock the requests, please first stop the app - otherwise you will get an `EADDRINUSE` error.
 

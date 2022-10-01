@@ -7,12 +7,13 @@ import { ifDefined } from 'lit/directives/if-defined.js';
 import { AppStockReport } from '@apptypes';
 import { RootState, store } from '@infrastructure/state/store';
 
-import '@ui/components/molecules/ProductInfo';
 import '@ui/components/molecules/BarChart';
+import '@ui/components/molecules/ProductInfo';
+import '@ui/components/molecules/WarehouseCoverage';
 
 export class ProductCard extends connect(store)(LitElement) {
   @property({ type: Number }) code = undefined;
-  @property({ type: String }) private product: AppStockReport.Product | undefined = undefined;
+  @property({ type: Object }) private product: AppStockReport.Product | undefined = undefined;
 
   static styles = css`
     :host {
@@ -25,6 +26,25 @@ export class ProductCard extends connect(store)(LitElement) {
       border-radius: 0.25rem;
       box-shadow: 0 0 5px 1px rgba(0, 0, 0, 0.2);
       overflow: hidden;
+    }
+
+    .product-image {
+      position: relative;
+    }
+
+    .product-image span {
+      background-color: var(--neutral200-color);
+      border-radius: 0.2rem;
+      color: #fff;
+      display: block;
+      font-size: 0.8rem;
+      height: 1.2rem;
+      left: 0.5rem;
+      line-height: 1.2rem;
+      position: absolute;
+      text-align: center;
+      top: 0.5rem;
+      width: 1.2rem;
     }
 
     .product-image img {
@@ -54,6 +74,7 @@ export class ProductCard extends connect(store)(LitElement) {
     return html`
       <article>
         <div class="product-image">
+          <span>${this.product?.salesRanking}</span>
           <img src="${ifDefined(this.product?.imagePath)}" alt="${ifDefined(this.product?.name)}" />
         </div>
 
@@ -67,6 +88,11 @@ export class ProductCard extends connect(store)(LitElement) {
           chartId="size-stock-${this.code}"
           data="${JSON.stringify(ifDefined(this.product?.sizeStock))}"
         ></bar-chart>
+
+        <warehouse-coverage
+          coverage="${ifDefined(this.product?.warehouseCoverage)}"
+          label="${ifDefined(this.product?.coverageLabel)}"
+        ></warehouse-coverage>
       </article>
     `;
   }

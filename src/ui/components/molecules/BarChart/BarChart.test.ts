@@ -1,4 +1,3 @@
-import { LitElement } from 'lit';
 import { customElement } from '@test/util';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { waitFor } from '@testing-library/dom';

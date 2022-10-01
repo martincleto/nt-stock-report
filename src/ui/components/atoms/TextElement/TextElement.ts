@@ -11,11 +11,16 @@ export class TextElement extends LitElement {
   @property({ type: Boolean }) uppercase = false;
 
   static styles = css`
+    :host {
+      color: var(--text-element-color, inherit);
+    }
     :host,
     h1,
     h2,
     h3 {
       font-weight: var(--text-element-font-weight, inherit);
+      margin-bottom: var(--text-element-margin-bottom, inherit);
+      margin-top: var(--text-element-margin-top, inherit);
     }
 
     h1 {
@@ -23,11 +28,11 @@ export class TextElement extends LitElement {
     }
 
     h2 {
-      font-size: var(--text-element-font-size, 1.75rem);
+      font-size: var(--text-element-font-size, 1.25rem);
     }
 
     h3 {
-      font-size: var(--text-element-font-size, 1.5rem);
+      font-size: var(--text-element-font-size, 1rem);
     }
 
     .uppercase {
@@ -35,7 +40,7 @@ export class TextElement extends LitElement {
     }
 
     .large {
-      font-size: var(--text-element-font-size, 3.5rem);
+      font-size: var(--text-element-font-size, 2.5rem);
     }
 
     .small {

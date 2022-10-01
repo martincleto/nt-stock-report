@@ -1,3 +1,4 @@
+/* eslint-disable class-methods-use-this */
 import { CURRENCY, CURRENCY_LOCALE, IMAGE_FOLDER } from '@appconfig';
 import { AppStockReport } from '@apptypes';
 
@@ -33,11 +34,10 @@ export class ProductDTO implements AppStockReport.Product {
     this.salesRanking = sales_ranking;
     this.sizeStock = size_stock;
     this.stockoutRate = stockout_rate;
-    this.warehouseCoverage = wh_coverage;
+    this.warehouseCoverage = this.getCoveragePercentage(wh_coverage);
   }
   /* eslint-enable camelcase */
 
-  // eslint-disable-next-line class-methods-use-this
   getCoverageLabel(warehouseCoverage: number): AppStockReport.CoverageLabel {
     if (warehouseCoverage < 0.25) {
       return 'Very Low';
@@ -51,7 +51,10 @@ export class ProductDTO implements AppStockReport.Product {
     return 'Very Good';
   }
 
-  // eslint-disable-next-line class-methods-use-this
+  getCoveragePercentage(warehouseCoverage: number) {
+    return warehouseCoverage * 100;
+  }
+
   getImagePath(code: number): string {
     return `${IMAGE_FOLDER}/${code}.jpg`;
   }

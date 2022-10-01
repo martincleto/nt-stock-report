@@ -27,14 +27,17 @@ export class AppBootstrap extends connect(store)(LitElement) {
       align-items: center;
       color: #1a2b42;
       display: flex;
-      flex-direction: column;
-      font-size: 1rem;
-      justify-content: flex-start;
       min-height: 100vh;
     }
 
     main {
-      flex-grow: 1;
+      display: flex;
+      flex-direction: row;
+      font-size: 1rem;
+      flex-wrap: wrap;
+      gap: 1rem;
+      justify-content: center;
+      padding-top: 5rem;
     }
 
     header {
@@ -42,17 +45,23 @@ export class AppBootstrap extends connect(store)(LitElement) {
       box-shadow: 0 0 0.15rem 0.15rem rgba(0, 0, 0, 0.2);
       color: #fff;
       left: 0;
-      padding: 1rem 2rem;
+      padding: 0.5rem 1.75rem;
       position: fixed;
       top: 0;
       text-transform: capitalize;
       width: 100%;
     }
 
-    @media (min-width: 960px) {
+    header {
+      --text-element-font-size: 1.1rem;
+      --text-element-font-weight: 500;
+    }
+
+    @media (min-width: 1280px) {
       :host {
         margin: 0 auto;
-        max-width: 960px;
+        max-width: 1280px;
+        margin: 0 auto;
       }
     }
   `;
@@ -75,7 +84,7 @@ export class AppBootstrap extends connect(store)(LitElement) {
     return html`
       <main>
         <header>
-          <text-element heading level="1">${this.title}</text-element>
+          <text-element heading>${this.title}</text-element>
         </header>
         ${this.products.length > 0
           ? this.renderContent()

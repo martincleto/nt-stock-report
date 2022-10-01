@@ -12,6 +12,11 @@ const customElement = (tagName: string) => ({
   },
 });
 
-const insertElement = (html: string) => document.body.insertAdjacentHTML('afterbegin', html);
+const insertElement = async (html: string) => document.body.insertAdjacentHTML('afterbegin', html);
 
-export { customElement, insertElement, getShadowRoot };
+const toPx = (value: string) => {
+  const BASE_FONT_SIZE = 16;
+  return `${parseFloat(value) * BASE_FONT_SIZE}px`;
+};
+
+export { customElement, insertElement, getShadowRoot, toPx };

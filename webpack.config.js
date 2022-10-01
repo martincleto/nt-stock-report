@@ -2,6 +2,7 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { merge } = require('webpack-merge');
 const path = require('path');
+const CopyPlugin = require("copy-webpack-plugin");
 const TerserPlugin = require('terser-webpack-plugin');
 const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
 
@@ -39,9 +40,14 @@ const config = {
       port: 8000,
     },
     plugins: [
+      new CopyPlugin({
+        patterns: [
+          { from: 'content', to: 'content' },
+        ],
+      }),
       new HtmlWebpackPlugin({
         inject: false,
-        title: 'Webcomponent Stock Report App', 
+        title: 'Webcomponent Stock Report App',
         template: './index.html'
       }),
     ],

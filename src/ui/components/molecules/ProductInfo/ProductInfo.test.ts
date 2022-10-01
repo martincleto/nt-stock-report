@@ -1,12 +1,12 @@
-import { insertElement } from '@test/util';
+import { insertElement, getShadowRoot } from '@test/util';
 // eslint-disable-next-line import/no-extraneous-dependencies
-import { getByText } from '@testing-library/dom';
+import { findByText, getByText } from '@testing-library/dom';
 
 const TAG_NAME = 'product-info';
 
 describe(TAG_NAME, () => {
   const mockProps = {
-    code: '123456',
+    code: 123456,
     name: 'A cool jacket',
     price: '19,99 €',
   };
@@ -16,23 +16,29 @@ describe(TAG_NAME, () => {
     document.body.getElementsByTagName(TAG_NAME)[0].remove();
   });
 
-  test('should show the product code', () => {
-    insertElement(`<product-info code="${mockProps.name}"></product-info>`);
-    const code = getByText(rootElement, mockProps.code);
+  test('should show the product code', async () => {
+    await insertElement(`<product-info code="${mockProps.code}"></product-info>`);
+    const productInfo = getShadowRoot(TAG_NAME).firstElementChild! as HTMLElement;
+
+    const code = await findByText(productInfo, mockProps.code);
 
     expect(code).toBeVisible();
   });
 
-  test('should show the product name', () => {
-    insertElement(`<product-info name="${mockProps.name}"></product-info>`);
-    const name = getByText(rootElement, mockProps.name);
+  test('should show the product name', async () => {
+    await insertElement(`<product-info name="${mockProps.name}"></product-info>`);
+    const productInfo = getShadowRoot(TAG_NAME).firstElementChild! as HTMLElement;
+
+    const name = await findByText(productInfo, mockProps.name);
 
     expect(name).toBeVisible();
   });
 
-  test('should show the product price', () => {
-    insertElement(`<product-info price="${mockProps.name}"></product-info>`);
-    const price = getByText(rootElement, mockProps.price);
+  test('should show the product price', async () => {
+    await insertElement(`<product-info price="${mockProps.price}"></product-info>`);
+    const productInfo = getShadowRoot(TAG_NAME).firstElementChild! as HTMLElement;
+
+    const price = await findByText(productInfo, mockProps.price);
 
     expect(price).toBeVisible();
   });

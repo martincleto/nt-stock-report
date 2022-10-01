@@ -18,7 +18,8 @@
 # build
 /dist/
 
-# developent
+# development
+/content/
 /public/bundle.js
 
 custom-elements.json

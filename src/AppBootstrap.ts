@@ -9,7 +9,7 @@ import { RootState, store } from '@infrastructure/state/store';
 
 import '@ui/components/atoms/LoadingSpinner';
 import '@ui/components/atoms/TextElement';
-import '@ui/components/organism/ProductCard';
+import '@ui/components/organisms/ProductCard';
 
 // const logo = new URL('../assets/open-wc-logo.svg', import.meta.url).href;
 export class AppBootstrap extends connect(store)(LitElement) {
@@ -24,8 +24,7 @@ export class AppBootstrap extends connect(store)(LitElement) {
       --neutral0-color: rgba(0, 0, 0, 255);
       --neutral150-color: rgba(150, 150, 150, 255);
 
-      align-items: center;
-      color: #1a2b42;
+      color: var(--neutral150-color);
       display: flex;
       min-height: 100vh;
     }
@@ -37,10 +36,13 @@ export class AppBootstrap extends connect(store)(LitElement) {
       flex-wrap: wrap;
       gap: 1rem;
       justify-content: center;
-      padding-top: 5rem;
+      padding: 5rem 1rem 1rem 1rem;
     }
 
     header {
+      --text-element-font-size: 1.1rem;
+      --text-element-font-weight: 500;
+
       background-color: var(--primary-color);
       box-shadow: 0 0 0.15rem 0.15rem rgba(0, 0, 0, 0.2);
       color: #fff;
@@ -50,11 +52,6 @@ export class AppBootstrap extends connect(store)(LitElement) {
       top: 0;
       text-transform: capitalize;
       width: 100%;
-    }
-
-    header {
-      --text-element-font-size: 1.1rem;
-      --text-element-font-weight: 500;
     }
 
     @media (min-width: 1280px) {

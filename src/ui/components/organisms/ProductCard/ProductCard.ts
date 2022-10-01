@@ -16,6 +16,25 @@ export class ProductCard extends connect(store)(LitElement) {
   static styles = css`
     :host {
       display: block;
+      width: 100%;
+    }
+
+    article {
+      background-color: #fff;
+      border-radius: 0.25rem;
+      box-shadow: 0 0 5px 1px rgba(0, 0, 0, 0.2);
+      overflow: hidden;
+    }
+
+    .product-image img {
+      max-width: 100%;
+      width: 100%;
+    }
+
+    @media (min-width: 600px) {
+      :host {
+        width: fit-content;
+      }
     }
   `;
 

@@ -20,6 +20,6 @@
 
 # development
 /content/
-/public/bundle.js
+/public/
 
 custom-elements.json

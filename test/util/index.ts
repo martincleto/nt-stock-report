@@ -2,6 +2,17 @@ import { LitElement } from 'lit';
 
 const getShadowRoot = (tagName: string): ShadowRoot => document.body.getElementsByTagName(tagName)[0].shadowRoot!;
 
+const getSlotsAssignedNodes = (element: HTMLElement): Node[] => {
+  const slots = element.querySelectorAll('slot');
+  let assignedNodes: Node[] = [];
+
+  slots.forEach(slot => {
+    assignedNodes = [...assignedNodes, ...slot.assignedNodes()];
+  });
+
+  return assignedNodes;
+};
+
 const customElement = (tagName: string) => ({
   cleanup: () => document.body.getElementsByTagName(tagName)[0].remove(),
   setup: async (attributes: Record<string, any>[] = []) => {
@@ -25,4 +36,4 @@ const toPx = (value: string) => {
   return `${parseFloat(value) * BASE_FONT_SIZE}px`;
 };
 
-export { customElement, insertElement, getShadowRoot, toPx };
+export { customElement, insertElement, getShadowRoot, getSlotsAssignedNodes, toPx };

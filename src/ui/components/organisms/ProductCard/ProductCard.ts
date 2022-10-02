@@ -7,6 +7,7 @@ import { ifDefined } from 'lit/directives/if-defined.js';
 import { AppStockReport } from '@apptypes';
 import { RootState, store } from '@infrastructure/state/store';
 
+import '@ui/components/atoms/ActionButton';
 import '@ui/components/molecules/BarChart';
 import '@ui/components/molecules/ProductInfo';
 import '@ui/components/molecules/WarehouseCoverage';
@@ -26,6 +27,10 @@ export class ProductCard extends connect(store)(LitElement) {
       border-radius: 0.25rem;
       box-shadow: 0 0 5px 1px rgba(0, 0, 0, 0.2);
       overflow: hidden;
+    }
+
+    action-button {
+      --button-background-color: rgba(31, 54, 71, 1);
     }
 
     .product-image {
@@ -52,6 +57,24 @@ export class ProductCard extends connect(store)(LitElement) {
       width: 100%;
     }
 
+    .product-image .action-wrapper {
+      align-items: center;
+      background-color: rgba(256, 256, 256, 0.5);
+      bottom: 0;
+      display: flex;
+      justify-content: center;
+      left: 0;
+      opacity: 0;
+      position: absolute;
+      right: 0;
+      transition: opacity 0.3s ease-in-out;
+      top: 0;
+    }
+
+    .product-image:hover .action-wrapper {
+      opacity: 1;
+    }
+
     @media (min-width: 600px) {
       :host {
         width: calc(50% - 1rem);
@@ -76,6 +99,9 @@ export class ProductCard extends connect(store)(LitElement) {
         <div class="product-image">
           <span>${this.product?.salesRanking}</span>
           <img src="${ifDefined(this.product?.imagePath)}" alt="${ifDefined(this.product?.name)}" />
+          <div class="action-wrapper">
+            <action-button action="stockreport:markcomplete">Mark Complete</action-button>
+          </div>
         </div>
 
         <product-info

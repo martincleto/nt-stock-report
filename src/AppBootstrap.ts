@@ -11,20 +11,19 @@ import '@ui/components/atoms/LoadingSpinner';
 import '@ui/components/atoms/TextElement';
 import '@ui/components/organisms/ProductCard';
 
-// const logo = new URL('../assets/open-wc-logo.svg', import.meta.url).href;
 export class AppBootstrap extends connect(store)(LitElement) {
   @property({ type: String }) title = 'Top stockouts review';
   @property({ type: Array }) products: AppStockReport.Product[] = [];
 
   static styles = css`
     :host {
-      --accent-color: rgba(145, 215, 86, 255);
-      --primary-color: rgba(255, 80, 89, 255);
-      --light-color: rgba(225, 231, 237, 255);
-      --neutral0-color: rgba(0, 0, 0, 255);
-      --neutral50-color: rgba(50, 50, 50, 255);
-      --neutral150-color: rgba(150, 150, 150, 255);
-      --neutral200-color: rgba(200, 200, 200, 255);
+      --accent-color: rgba(145, 215, 86, 1);
+      --light-color: rgba(225, 231, 237, 1);
+      --neutral0-color: rgba(0, 0, 0, 1);
+      --neutral50-color: rgba(50, 50, 50, 1);
+      --neutral150-color: rgba(150, 150, 150, 1);
+      --neutral200-color: rgba(200, 200, 200, 1);
+      --primary-color: rgba(255, 80, 89, 1);
 
       color: var(--neutral150-color);
       display: flex;
@@ -73,7 +72,7 @@ export class AppBootstrap extends connect(store)(LitElement) {
 
   stateChanged(state: RootState) {
     const { products } = state.report;
-    this.products = products;
+    this.products = [...products].sort((a, b) => (a.salesRanking > b.salesRanking ? 1 : -1));
   }
 
   renderContent() {

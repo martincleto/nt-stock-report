@@ -1,3 +1,5 @@
+import { LitElement } from 'lit';
+
 export namespace AppStockReport {
   export type CoverageLabel = 'Very Low' | 'Low' | 'Good' | 'Very Good';
   export type Size = 'S' | 'M' | 'L' | 'XL' | 'XXL';
@@ -18,6 +20,10 @@ export namespace AppStockReport {
     headers?: Headers;
     body?: Record<string, unknown>;
     method?: 'DELETE' | 'GET' | 'POST' | 'PUT';
+  }
+
+  export interface Modal extends LitElement {
+    isOpen: boolean;
   }
   export interface Product {
     code: number;

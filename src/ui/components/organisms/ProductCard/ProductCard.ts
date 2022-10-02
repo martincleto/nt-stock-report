@@ -100,7 +100,12 @@ export class ProductCard extends connect(store)(LitElement) {
           <span>${this.product?.salesRanking}</span>
           <img src="${ifDefined(this.product?.imagePath)}" alt="${ifDefined(this.product?.name)}" />
           <div class="action-wrapper">
-            <action-button action="stockreport:markcomplete">Mark Complete</action-button>
+            <action-button
+              action="stockreport:show-confirmation"
+              data-code="${ifDefined(this.product?.code)}"
+              data-name="${ifDefined(this.product?.name)}"
+              >Mark Complete</action-button
+            >
           </div>
         </div>
 

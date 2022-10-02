@@ -34,6 +34,7 @@ export class ActionButton extends LitElement {
   private _handleClick() {
     const options = {
       bubbles: true,
+      detail: this.dataset || {},
       composed: true,
     };
     this.dispatchEvent(new CustomEvent(this.action, options));

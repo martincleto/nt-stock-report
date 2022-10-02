@@ -1,19 +1,25 @@
 import { LitElement, html, css } from 'lit';
 import { connect } from 'pwa-helpers';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import { property } from 'lit/decorators.js';
+import { property, state } from 'lit/decorators.js';
 
 import { AppStockReport } from '@apptypes';
 import { getProducts } from '@infrastructure/state/slices/report';
 import { RootState, store } from '@infrastructure/state/store';
 
+import '@ui/components/atoms/ActionButton';
 import '@ui/components/atoms/LoadingSpinner';
 import '@ui/components/atoms/TextElement';
+import '@ui/components/molecules/ModalElement';
 import '@ui/components/organisms/ProductCard';
 
 export class AppBootstrap extends connect(store)(LitElement) {
   @property({ type: String }) title = 'Top stockouts review';
   @property({ type: Array }) products: AppStockReport.Product[] = [];
+  @property() private _modal!: AppStockReport.Modal;
+
+  @state() protected _currentProductCode = '';
+  @state() protected _currentProductName = '';
 
   static styles = css`
     :host {
@@ -65,13 +71,25 @@ export class AppBootstrap extends connect(store)(LitElement) {
     }
   `;
 
+  constructor() {
+    super();
+    this.addEventListener('stockreport:show-confirmation', evt => {
+      this._modal = this.renderRoot.querySelector('modal-element') as AppStockReport.Modal;
+      const { code, name } = (evt as CustomEvent).detail;
+
+      this._modal.isOpen = true;
+      this._currentProductCode = code;
+      this._currentProductName = name;
+    });
+  }
+
   connectedCallback() {
     super.connectedCallback();
     store.dispatch(getProducts());
   }
 
-  stateChanged(state: RootState) {
-    const { products } = state.report;
+  stateChanged(_state: RootState) {
+    const { products } = _state.report;
     this.products = [...products].sort((a, b) => (a.salesRanking > b.salesRanking ? 1 : -1));
   }
 
@@ -79,8 +97,24 @@ export class AppBootstrap extends connect(store)(LitElement) {
     return this.products.map(({ code }) => html` <product-card code="${code}"></product-card> `);
   }
 
+  _closeModal(evt: Event) {
+    evt.preventDefault();
+    this._modal.isOpen = false;
+  }
+
   render() {
     return html`
+      <modal-element>
+        <p>Do you want to mark <strong>${this._currentProductCode} ${this._currentProductName}</strong> complete?</p>
+        <p>
+          <action-button action="stockreport:product-complete" data-code="${this._currentProductCode}">
+            Yes, mark complete
+          </action-button>
+        </p>
+        <p>
+          <a href="#" @click="${this._closeModal}">No, cancel</a>
+        </p>
+      </modal-element>
       <main>
         <header>
           <text-element heading>${this.title}</text-element>

@@ -68,7 +68,7 @@ export class BarChart extends LitElement {
   render() {
     return html`
       <div>
-        <canvas id="${this.chartId}" width="400" height="200"></canvas>
+        <canvas id="${this.chartId}" style="{ width: 100%; aspect-ratio: 2 }"></canvas>
       </div>
     `;
   }

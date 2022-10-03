@@ -1,3 +1,0 @@
-{
-  "/products/:code": "/products?code=:code"
-}

@@ -4,6 +4,7 @@ import { AppStockReport } from '@apptypes';
 
 export class ProductDTO implements AppStockReport.Product {
   code: number;
+  complete = false;
   coverageLabel: AppStockReport.CoverageLabel;
   imagePath: string;
   name: string;
@@ -16,6 +17,7 @@ export class ProductDTO implements AppStockReport.Product {
   /* eslint-disable camelcase */
   constructor({
     code,
+    complete,
     name,
     price,
     sales_ranking,
@@ -24,6 +26,7 @@ export class ProductDTO implements AppStockReport.Product {
     wh_coverage,
   }: AppStockReport.ProductResponse) {
     this.code = code;
+    this.complete = complete;
     this.coverageLabel = this.getCoverageLabel(wh_coverage);
     this.imagePath = this.getImagePath(code);
     this.name = name;

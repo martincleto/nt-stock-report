@@ -3,9 +3,13 @@ import { LitElement } from 'lit';
 export namespace AppStockReport {
   export type CoverageLabel = 'Very Low' | 'Low' | 'Good' | 'Very Good';
   export type Size = 'S' | 'M' | 'L' | 'XL' | 'XXL';
+  export type FieldsToUpdate = {
+    complete?: boolean;
+  };
   /* eslint-disable camelcase */
   export type ProductResponse = {
     code: number;
+    complete: boolean;
     name: string;
     price: number;
     sales_ranking: number;
@@ -18,8 +22,8 @@ export namespace AppStockReport {
     endpoint: string;
     params?: Record<string, string>;
     headers?: Headers;
-    body?: Record<string, unknown>;
-    method?: 'DELETE' | 'GET' | 'POST' | 'PUT';
+    body?: Record<string, unknown> | string;
+    method?: 'DELETE' | 'GET' | 'PATCH' | 'POST' | 'PUT';
   }
 
   export interface Modal extends LitElement {
@@ -27,6 +31,7 @@ export namespace AppStockReport {
   }
   export interface Product {
     code: number;
+    complete: boolean;
     coverageLabel: CoverageLabel;
     imagePath: string;
     name: string;

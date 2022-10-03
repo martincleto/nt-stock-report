@@ -1,7 +1,9 @@
 {
   "products": [
     {
+      "id": 182295,
       "code": 182295,
+      "complete": false,
       "name": "ACME PRODUCT 02509",
       "price": 22.99,
       "sales_ranking": 2,
@@ -16,7 +18,9 @@
       }
     },
     {
+      "id": 182297,
       "code": 182297,
+      "complete": false,
       "name": "ACME PRODUCT 02511",
       "price": 22.99,
       "sales_ranking": 1,
@@ -31,7 +35,9 @@
       }
     },
     {
+      "id": 182943,
       "code": 182943,
+      "complete": false,
       "name": "ACME PRODUCT 03118",
       "price": 79.90,
       "sales_ranking": 4,
@@ -46,7 +52,9 @@
       }
     },
     {
+      "id": 183395,
       "code": 183395,
+      "complete": false,
       "name": "ACME PRODUCT 03554",
       "price": 19.99,
       "sales_ranking": 3,

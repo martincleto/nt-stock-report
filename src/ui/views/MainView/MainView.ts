@@ -39,9 +39,8 @@ export class MainView extends connect(store)(LitElement) {
     main {
       display: flex;
       flex-direction: row;
+      flex-grow: 1;
       font-size: 1rem;
-      flex-wrap: wrap;
-      gap: 1rem;
       justify-content: center;
       padding: 5rem 1rem 1rem 1rem;
     }
@@ -62,11 +61,24 @@ export class MainView extends connect(store)(LitElement) {
       z-index: 10;
     }
 
+    .content {
+      width: calc(100% - 0.25rem);
+    }
+
+    @media (min-width: 600px) {
+      .content {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 1rem;
+        justify-content: center;
+      }
+    }
+
     @media (min-width: 1280px) {
       :host {
         margin: 0 auto;
         max-width: 1280px;
-        margin: 0 auto;
       }
     }
   `;
@@ -125,9 +137,11 @@ export class MainView extends connect(store)(LitElement) {
         <header>
           <text-element heading>${this.title}</text-element>
         </header>
-        ${this.products.length > 0
-          ? this.renderContent()
-          : html` <loading-spinner role="progressbar"></loading-spinner> `}
+        <div class="content">
+          ${this.products.length > 0
+            ? this.renderContent()
+            : html` <loading-spinner role="progressbar"></loading-spinner> `}
+        </div>
       </main>
 
       <modal-element>

@@ -1,5 +1,6 @@
 module.exports = {
   moduleNameMapper: {
+    '@appconfig': '<rootDir>/src/config.ts',
     '@apptypes': '<rootDir>/src/types.ts',
     '@infrastructure/(.*)': '<rootDir>/src/infrastructure/$1',
     '@test/(.*)': '<rootDir>/test/$1',
@@ -11,4 +12,5 @@ module.exports = {
   setupFiles: ['<rootDir>/public/bundle.js'],
   setupFilesAfterEnv: ['<rootDir>/test/setupTests.ts'],
   testEnvironment: 'jest-electron/environment',
+  verbose: true,
 };

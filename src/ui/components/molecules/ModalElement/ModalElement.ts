@@ -93,6 +93,10 @@ export class ModalElement extends LitElement {
         width: 100%;
         z-index: var(--modal-backdrop-z-index, 99);
       }
+
+      :host(::slotted(a)) {
+        color: var(--neutral50-color);
+      }
     }
   `;
 

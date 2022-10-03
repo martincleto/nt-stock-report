@@ -1,18 +1,12 @@
 import { API_HOST } from '@infrastructure/services/config';
 import { AppStockReport } from '@apptypes';
 
-const parseJSON = (response: Response) =>
-  response.text().then(text => (text ? JSON.parse(text) : null));
+const parseJSON = (response: Response) => response.text().then(text => (text ? JSON.parse(text) : null));
 
-const doRequest = async (
-  options: AppStockReport.RequestOptions
-): Promise<any> => {
+const doRequest = async (options: AppStockReport.RequestOptions): Promise<any> => {
   const { endpoint, params, headers, body, method } = options;
 
-  const _params =
-    typeof params !== 'undefined'
-      ? `?${new URLSearchParams(params).toString()}`
-      : '';
+  const _params = typeof params !== 'undefined' ? `?${new URLSearchParams(params).toString()}` : '';
   const url = `${API_HOST}/${endpoint}${_params}`;
   const defaultHeaders = new Headers();
   defaultHeaders.set('Content-Type', 'application/json');

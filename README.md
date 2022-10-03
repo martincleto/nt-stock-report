@@ -18,9 +18,8 @@ A basic stock report built with web components.
 
 ### Tests
 `npm test:unit` runs unit tests
-`npm test:integration` runs integration test
 
-Note: As [msw](https://mswjs.io/) needs the API REST server to be running in order to mock the requests, please first stop the app - otherwise you will get an `EADDRINUSE` error.
+`npm test:integration` runs integration test
 
 ### Other
 You can run `npm run restore-db` to populate the dummy db with the initial data.
@@ -39,4 +38,7 @@ You can run `npm run restore-db` to populate the dummy db with the initial data.
   - IT-21 Show complete button when hovering the product card
   - IT-22 Show a confirmation modal to mark as complete
   - IT-23 Add mark as complete funcionality
+
+#### Known issues
+- When running the tests, Electron randomly hangs out causing the process not exiting after the tests are done.
 

@@ -19,7 +19,8 @@
     "start:build": "concurrently -k -r \"npm run server:api\" \"npm run server:prod\"",
     "start": "concurrently -k -r \"npm run server:api\" \"npm run server:dev\"",
     "test:integration": "jest src/ui/views --detectOpenHandles --forceExit",
-    "test:unit": "jest src/ui/components --detectOpenHandles --forceExit"
+    "test:unit": "jest src/ui/components --detectOpenHandles --forceExit",
+    "test": "npm run test:unit && test:integration"
   },
   "dependencies": {
     "@reduxjs/toolkit": "^1.8.5",

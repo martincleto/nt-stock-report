@@ -101,6 +101,7 @@ export class MainView extends connect(store)(LitElement) {
           fields: { complete: true },
         })
       );
+
       this._modal.isOpen = false;
       this.requestUpdate();
     });

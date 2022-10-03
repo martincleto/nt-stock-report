@@ -1,6 +1,6 @@
 import { LitElement, html, css } from 'lit';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import { property, state } from 'lit/decorators.js';
+import { property } from 'lit/decorators.js';
 
 const iconClose = html`
   <svg viewBox="0 0 32 32">
@@ -77,7 +77,7 @@ export class ModalElement extends LitElement {
         box-shadow: 0 0 5px 1px rgba(0, 0, 0, 0.2);
         height: 60%;
         left: 50%;
-        position: absolute;
+        position: fixed;
         transform: translate(-50%, -50%);
         top: 50%;
         width: 60%;
@@ -87,9 +87,12 @@ export class ModalElement extends LitElement {
         background-color: rgba(0, 0, 0, 0.5);
         display: block;
         height: 100%;
+        left: 0;
         opacity: 1;
-        position: absolute;
+        position: fixed;
+        top: 0;
         transition: opacity 0.3s linear;
+        visibility: visible;
         width: 100%;
         z-index: var(--modal-backdrop-z-index, 99);
       }
@@ -98,7 +101,18 @@ export class ModalElement extends LitElement {
         color: var(--neutral50-color);
       }
     }
+
+    @media (min-width: 960px) {
+      .modal {
+        width: 40%;
+      }
+    }
   `;
+
+  update(changedProperties: Map<string, unknown>) {
+    document.body.style.overflow = this.isOpen ? 'hidden' : 'auto';
+    super.update(changedProperties);
+  }
 
   render() {
     return html`
